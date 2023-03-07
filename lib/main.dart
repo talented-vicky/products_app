@@ -23,11 +23,12 @@ class _MyAppState extends State<MyApp> {
     //types are necessary build => widget, context => BuildContext
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(primaryColor: Colors.purpleAccent),
       home: Scaffold(
         appBar: AppBar(
           title: const Text("Welcome onboard!"),
         ),
-        body: const ProductsMgr(),
+        body: ProductsMgr(),
       ),
     );
   }
