@@ -11,8 +11,19 @@ class Products extends StatelessWidget {
         children: prods
             .map(
               (product) => Card(
+                margin: const EdgeInsets.only(left: 80, right: 80, bottom: 5),
+                elevation: 6,
+                color: Colors.white,
                 child: Column(
-                  children: [Image.asset('assets/meal.jpg'), Text(product)],
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Image.asset('assets/meal.jpg', height: 250),
+                    ),
+                    Text(product),
+                  ],
                 ),
               ),
             )

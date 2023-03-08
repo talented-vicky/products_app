@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 
 import './products.dart';
+import 'products_ctrl.dart';
+
+/*
+  this widget (file) should hold the state since it has acces to all the 
+  widgets, either the ones that change it (like "productCtrl") or require/need 
+  the widget state, which is the changing data (like the "Products")
+  --- known as state lifting
+ */
 
 class ProductsMgr extends StatefulWidget {
   final String initProds;
+
   ProductsMgr({this.initProds = "test product"});
 
   @override
@@ -12,6 +21,8 @@ class ProductsMgr extends StatefulWidget {
 
 class _ProductsMgrState extends State<ProductsMgr> {
   final List<String> _prods = [];
+  // recall const (used on R.H.S) ensures a value can never be changed while
+  // final (used on L.H.S) ensures a new value cannot be re-assigned
 
   @override
   void initState() {
@@ -28,20 +39,24 @@ class _ProductsMgrState extends State<ProductsMgr> {
     super.didUpdateWidget(oldWidget);
   }
 
+  void _addProd(String prod) {
+    setState(() {
+      _prods.add(prod);
+    });
+    // all void funtions return nothing and can only be accessed by the class
+    // in which they are passed hence named with an underscore, the same reason
+    // ProductsMgrState has an underscore as a prefix ensuring its
+    // method (functions) and properties (variables) cannot be imported or
+    // directly accessed by an external class
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.all(10),
-          child: ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _prods.add("added this");
-                });
-              },
-              child: const Text('Add new')),
-        ),
+            margin: const EdgeInsets.only(top: 10, bottom: 15),
+            child: ProductsCtrl(_addProd)),
         Products(_prods)
       ],
     );
